@@ -171,7 +171,7 @@ public interface LoggingRpc extends AutoCloseable, ServiceRpc {
   ApiFuture<Empty> delete(DeleteLogMetricRequest request);
 
   /**
-   * Sends a request to get a CMEK settings. This method returns a {@code ApiFuture} object to
+   * Sends a request to get the CMEK settings. This method returns a {@code ApiFuture} object to
    * consume the result.{@link ApiFuture#get()} returns the requested CMEK settings or {@code null}
    * if the CMEK settings was not found.
    *
@@ -180,9 +180,9 @@ public interface LoggingRpc extends AutoCloseable, ServiceRpc {
   ApiFuture<CmekSettings> getCmekSettings(GetCmekSettingsRequest request);
 
   /**
-   * Sends a request to update a CMEK settings. If the CMEK settings does not exist, it is created.
-   * This method returns a {@code ApiFuture} object to consume the result. {@link ApiFuture#get()}
-   * returns the updated or created CMEK settings.
+   * Sends a request to update the CMEK settings. If the CMEK settings does not exist, it is
+   * created. This method returns a {@code ApiFuture} object to consume the result. {@link
+   * ApiFuture#get()} returns the updated or created CMEK settings.
    *
    * @param request the request object containing all of the parameters for the API call
    */

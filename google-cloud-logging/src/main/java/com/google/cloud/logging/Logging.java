@@ -671,13 +671,13 @@ public interface Logging extends AutoCloseable, Service<LoggingOptions> {
   /**
    * Returns the requested CMEK settings or {@code null} if not found.
    *
-   * <p>Example of getting a CMEK settings.
+   * <p>Example of getting the CMEK settings.
    *
    * <pre>{@code
    * String cmekSettingsName = "my_cmek_settings_name";
    * CmekSettings settings = logging.getCmekSettings(cmekSettingsName);
    * if (settings == null) {
-   *   // CMEK settings was not found
+   *   // CMEK settings were not found
    * }
    * }</pre>
    *
@@ -686,11 +686,11 @@ public interface Logging extends AutoCloseable, Service<LoggingOptions> {
   CmekSettings getCmekSettings(String cmekSettings);
 
   /**
-   * Sends a request for getting a CMEK settings. This method returns a {@code ApiFuture} object to
+   * Sends a request to get the CMEK settings. This method returns a {@code ApiFuture} object to
    * consume the result. {@link ApiFuture#get()} returns the requested CMEK settings or {@code null}
    * if not found.
    *
-   * <p>Example of asynchronously getting a CMEK settings.
+   * <p>Example of asynchronously getting the CMEK settings.
    *
    * <pre>{@code
    * String cmekSettingsName = "my_cmek_settings_name";
@@ -698,7 +698,7 @@ public interface Logging extends AutoCloseable, Service<LoggingOptions> {
    * // ...
    * CmekSettings settings = future.get();
    * if (settings == null) {
-   *   // CMEK settings was not found
+   *   // CMEK settings were not found
    * }
    * }</pre>
    *
@@ -707,9 +707,9 @@ public interface Logging extends AutoCloseable, Service<LoggingOptions> {
   ApiFuture<CmekSettings> getCmekSettingsAsync(String cmekSettings);
 
   /**
-   * Updates a CMEK settings or creates one if it does not exist.
+   * Updates the CMEK settings or creates one if it does not exist.
    *
-   * <p>Example of updating a CMEK settings.
+   * <p>Example of updating the CMEK settings.
    *
    * <pre>{@code
    * String cmekSettingsName = "my_cmek_settings_name";
@@ -729,11 +729,11 @@ public interface Logging extends AutoCloseable, Service<LoggingOptions> {
   CmekSettings updateCmekSettings(CmekSettings cmekSettings);
 
   /**
-   * Sends a request for updating a CMEK settings (or creating it, if it does not exist). This
+   * Sends a request for updating the CMEK settings (or creating it, if it does not exist). This
    * method returns a {@code ApiFuture} object to consume the result. {@link ApiFuture#get()}
    * returns the updated/created CMEK settings or {@code null} if not found.
    *
-   * <p>Example of asynchronously updating a CMEK settings.
+   * <p>Example of asynchronously updating the CMEK settings.
    *
    * <pre>{@code
    * String cmekSettingsName = "my_cmek_settings_name";
