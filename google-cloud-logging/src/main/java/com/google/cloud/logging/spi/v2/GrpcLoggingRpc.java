@@ -45,11 +45,13 @@ import com.google.cloud.logging.v2.LoggingSettings;
 import com.google.cloud.logging.v2.MetricsClient;
 import com.google.cloud.logging.v2.MetricsSettings;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.google.logging.v2.CmekSettings;
 import com.google.logging.v2.CreateLogMetricRequest;
 import com.google.logging.v2.CreateSinkRequest;
 import com.google.logging.v2.DeleteLogMetricRequest;
 import com.google.logging.v2.DeleteLogRequest;
 import com.google.logging.v2.DeleteSinkRequest;
+import com.google.logging.v2.GetCmekSettingsRequest;
 import com.google.logging.v2.GetLogMetricRequest;
 import com.google.logging.v2.GetSinkRequest;
 import com.google.logging.v2.ListLogEntriesRequest;
@@ -62,6 +64,7 @@ import com.google.logging.v2.ListSinksRequest;
 import com.google.logging.v2.ListSinksResponse;
 import com.google.logging.v2.LogMetric;
 import com.google.logging.v2.LogSink;
+import com.google.logging.v2.UpdateCmekSettingsRequest;
 import com.google.logging.v2.UpdateLogMetricRequest;
 import com.google.logging.v2.UpdateSinkRequest;
 import com.google.logging.v2.WriteLogEntriesRequest;
@@ -219,6 +222,19 @@ public class GrpcLoggingRpc implements LoggingRpc {
   public ApiFuture<Empty> delete(DeleteSinkRequest request) {
     return translate(
         configClient.deleteSinkCallable().futureCall(request), true, StatusCode.Code.NOT_FOUND);
+  }
+
+  @Override
+  public ApiFuture<CmekSettings> getCmekSettings(GetCmekSettingsRequest request) {
+    return translate(
+        configClient.getCmekSettingsCallable().futureCall(request),
+        true,
+        StatusCode.Code.NOT_FOUND);
+  }
+
+  @Override
+  public ApiFuture<CmekSettings> updateCmekSettings(UpdateCmekSettingsRequest request) {
+    return translate(configClient.updateCmekSettingsCallable().futureCall(request), true);
   }
 
   @Override

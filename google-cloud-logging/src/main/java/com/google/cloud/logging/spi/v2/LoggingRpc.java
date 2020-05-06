@@ -18,11 +18,13 @@ package com.google.cloud.logging.spi.v2;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.ServiceRpc;
+import com.google.logging.v2.CmekSettings;
 import com.google.logging.v2.CreateLogMetricRequest;
 import com.google.logging.v2.CreateSinkRequest;
 import com.google.logging.v2.DeleteLogMetricRequest;
 import com.google.logging.v2.DeleteLogRequest;
 import com.google.logging.v2.DeleteSinkRequest;
+import com.google.logging.v2.GetCmekSettingsRequest;
 import com.google.logging.v2.GetLogMetricRequest;
 import com.google.logging.v2.GetSinkRequest;
 import com.google.logging.v2.ListLogEntriesRequest;
@@ -35,6 +37,7 @@ import com.google.logging.v2.ListSinksRequest;
 import com.google.logging.v2.ListSinksResponse;
 import com.google.logging.v2.LogMetric;
 import com.google.logging.v2.LogSink;
+import com.google.logging.v2.UpdateCmekSettingsRequest;
 import com.google.logging.v2.UpdateLogMetricRequest;
 import com.google.logging.v2.UpdateSinkRequest;
 import com.google.logging.v2.WriteLogEntriesRequest;
@@ -166,4 +169,22 @@ public interface LoggingRpc extends AutoCloseable, ServiceRpc {
    * @param request the request object containing all of the parameters for the API call
    */
   ApiFuture<Empty> delete(DeleteLogMetricRequest request);
+
+  /**
+   * Sends a request to get a CMEK settings. This method returns a {@code ApiFuture} object to
+   * consume the result.{@link ApiFuture#get()} returns the requested CMEK settings or {@code null}
+   * if the CMEK settings was not found.
+   *
+   * @param request
+   */
+  ApiFuture<CmekSettings> getCmekSettings(GetCmekSettingsRequest request);
+
+  /**
+   * Sends a request to update a CMEK settings. If the CMEK settings does not exist, it is created.
+   * This method returns a {@code ApiFuture} object to consume the result. {@link ApiFuture#get()}
+   * returns the updated or created CMEK settings.
+   *
+   * @param request the request object containing all of the parameters for the API call
+   */
+  ApiFuture<CmekSettings> updateCmekSettings(UpdateCmekSettingsRequest request);
 }

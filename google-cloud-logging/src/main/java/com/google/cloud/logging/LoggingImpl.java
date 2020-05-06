@@ -51,6 +51,7 @@ import com.google.logging.v2.CreateSinkRequest;
 import com.google.logging.v2.DeleteLogMetricRequest;
 import com.google.logging.v2.DeleteLogRequest;
 import com.google.logging.v2.DeleteSinkRequest;
+import com.google.logging.v2.GetCmekSettingsRequest;
 import com.google.logging.v2.GetLogMetricRequest;
 import com.google.logging.v2.GetSinkRequest;
 import com.google.logging.v2.ListLogEntriesRequest;
@@ -65,6 +66,7 @@ import com.google.logging.v2.ProjectLogName;
 import com.google.logging.v2.ProjectMetricName;
 import com.google.logging.v2.ProjectName;
 import com.google.logging.v2.ProjectSinkName;
+import com.google.logging.v2.UpdateCmekSettingsRequest;
 import com.google.logging.v2.UpdateLogMetricRequest;
 import com.google.logging.v2.UpdateSinkRequest;
 import com.google.logging.v2.WriteLogEntriesRequest;
@@ -523,6 +525,33 @@ class LoggingImpl extends BaseService<LoggingOptions> implements Logging {
             .setMetricName(ProjectMetricName.of(getOptions().getProjectId(), metric).toString())
             .build();
     return transform(rpc.delete(request), EMPTY_TO_BOOLEAN_FUNCTION);
+  }
+
+  @Override
+  public CmekSettings getCmekSettings(String cmekSettings) {
+    return get(getCmekSettingsAsync(cmekSettings));
+  }
+
+  @Override
+  public ApiFuture<CmekSettings> getCmekSettingsAsync(String cmekSettings) {
+    GetCmekSettingsRequest request =
+        GetCmekSettingsRequest.newBuilder().setName(cmekSettings).build();
+    return transform(rpc.getCmekSettings(request), CmekSettings.FROM_PB_FUNCTION);
+  }
+
+  @Override
+  public CmekSettings updateCmekSettings(CmekSettings cmekSettings) {
+    return get(updateCmekSettingsAsync(cmekSettings));
+  }
+
+  @Override
+  public ApiFuture<CmekSettings> updateCmekSettingsAsync(CmekSettings cmekSettings) {
+    UpdateCmekSettingsRequest request =
+        UpdateCmekSettingsRequest.newBuilder()
+            .setName(cmekSettings.getName())
+            .setCmekSettings(cmekSettings.toPb())
+            .build();
+    return transform(rpc.updateCmekSettings(request), CmekSettings.FROM_PB_FUNCTION);
   }
 
   private static WriteLogEntriesRequest writeLogEntriesRequest(
