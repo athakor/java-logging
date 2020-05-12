@@ -555,9 +555,9 @@ class LoggingImpl extends BaseService<LoggingOptions> implements Logging {
     CreateExclusionRequest request =
         CreateExclusionRequest.newBuilder()
             .setParent(ProjectName.of(getOptions().getProjectId()).toString())
-            .setExclusion(exclusion.toPb())
+            .setExclusion(exclusion.toProtobuf())
             .build();
-    return transform(rpc.create(request), Exclusion.FROM_PB_FUNCTION);
+    return transform(rpc.create(request), Exclusion.FROM_PROTOBUF_FUNCTION);
   }
 
   @Override
@@ -571,7 +571,7 @@ class LoggingImpl extends BaseService<LoggingOptions> implements Logging {
         GetExclusionRequest.newBuilder()
             .setName(ProjectExclusionName.of(getOptions().getProjectId(), exclusion).toString())
             .build();
-    return transform(rpc.get(request), Exclusion.FROM_PB_FUNCTION);
+    return transform(rpc.get(request), Exclusion.FROM_PROTOBUF_FUNCTION);
   }
 
   @Override
@@ -586,9 +586,9 @@ class LoggingImpl extends BaseService<LoggingOptions> implements Logging {
             .setName(
                 (ProjectExclusionName.of(getOptions().getProjectId(), exclusion.getName())
                     .toString()))
-            .setExclusion(exclusion.toPb())
+            .setExclusion(exclusion.toProtobuf())
             .build();
-    return transform(rpc.update(request), Exclusion.FROM_PB_FUNCTION);
+    return transform(rpc.update(request), Exclusion.FROM_PROTOBUF_FUNCTION);
   }
 
   @Override
@@ -643,7 +643,8 @@ class LoggingImpl extends BaseService<LoggingOptions> implements Logging {
                 listExclusionsResponse.getExclusionsList() == null
                     ? ImmutableList.<Exclusion>of()
                     : Lists.transform(
-                        listExclusionsResponse.getExclusionsList(), Exclusion.FROM_PB_FUNCTION);
+                        listExclusionsResponse.getExclusionsList(),
+                        Exclusion.FROM_PROTOBUF_FUNCTION);
             String cursor =
                 listExclusionsResponse.getNextPageToken().equals("")
                     ? null
